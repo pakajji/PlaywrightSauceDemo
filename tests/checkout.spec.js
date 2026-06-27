@@ -18,19 +18,23 @@ test('Checkout Success', async ({ page }) => {
   await addProduct(page);
 
   await page.locator('[data-test="checkout"]').click();
-
+  await expect(page).toHaveURL('https://www.saucedemo.com/checkout-step-one.html');
   await expect(page.locator('[data-test="title"]')).toContainText('Checkout: Your Information');
+
   await page.locator('[data-test="firstName"]').fill('Testname')
   await page.locator('[data-test="lastName"]').fill('TestLastname');
   await page.locator('[data-test="postalCode"]').fill('10000');
   await page.locator('[data-test="continue"]').click();
-  
+  await expect(page).toHaveURL('https://www.saucedemo.com/checkout-step-two.html');
   await expect(page.locator('[data-test="title"]')).toContainText('Checkout: Overview');
+
   await page.locator('[data-test="total-label"]').click();
   await expect(page.locator('[data-test="payment-info-label"]')).toContainText('Payment Information:');
   await expect(page.locator('[data-test="shipping-info-label"]')).toContainText('Shipping Information:');
   await expect(page.locator('[data-test="total-info-label"]')).toContainText('Price Total');
+  
   await page.locator('[data-test="finish"]').click();
+  await expect(page).toHaveURL('https://www.saucedemo.com/checkout-complete.html');
   await expect(page.locator('[data-test="title"]')).toContainText('Checkout: Complete!');
   await expect(page.locator('[data-test="complete-header"]')).toContainText('Thank you for your order!');
 
@@ -41,8 +45,9 @@ test('Checkout Failed', async ({ page }) => {
   await addProduct(page);
 
   await page.locator('[data-test="checkout"]').click();
-
+  await expect(page).toHaveURL('https://www.saucedemo.com/checkout-step-one.html');
   await expect(page.locator('[data-test="title"]')).toContainText('Checkout: Your Information');
+
   await page.locator('[data-test="firstName"]').fill('')
   await page.locator('[data-test="lastName"]').fill('');
   await page.locator('[data-test="postalCode"]').fill('');
