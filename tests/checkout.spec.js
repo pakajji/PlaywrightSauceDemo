@@ -49,8 +49,8 @@ test('Checkout Failed', async ({ page }) => {
   await expect(page.locator('[data-test="title"]')).toContainText('Checkout: Your Information');
 
   await page.locator('[data-test="firstName"]').fill('')
-  await page.locator('[data-test="lastName"]').fill('');
-  await page.locator('[data-test="postalCode"]').fill('');
+  await page.locator('[data-test="lastName"]').fill('Lastname');
+  await page.locator('[data-test="postalCode"]').fill('10000');
   await page.locator('[data-test="continue"]').click();
   await expect(page.locator('[data-test="error"]')).toContainText('Error: First Name is required');
 });
